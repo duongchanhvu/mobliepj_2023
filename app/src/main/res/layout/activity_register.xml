@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.appcompat.widget.LinearLayoutCompat
+		xmlns:android="http://schemas.android.com/apk/res/android"
+		xmlns:tools="http://schemas.android.com/tools"
+		android:layout_width="match_parent"
+		android:layout_height="match_parent"
+		android:layout_gravity="center"
+		android:orientation="vertical"
+		android:layout_margin="10dp"
+		tools:context=".RegisterActivity">
+	<EditText
+			android:id="@+id/editTextUsername"
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:hint="@string/username"/>
+	
+	<EditText
+			android:id="@+id/editTextEmail"
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:hint="@string/email"/>
+	
+	<EditText
+			android:id="@+id/editTextPassword"
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:hint="@string/password"
+			android:inputType="textPassword"/>
+	
+	
+	<EditText
+			android:id="@+id/editTextConfirmPassword"
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:hint="@string/confirm_password"
+			android:inputType="textPassword"/>
+	
+	<Button
+			android:id="@+id/buttonRegister"
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:text="@string/register"/>
+	
+	<TextView
+			android:id="@+id/textViewLoginLink"
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:text="@string/already_have_an_account_login_here"
+			android:clickable="true"
+			android:gravity="center"
+			android:textColor="@android:color/holo_blue_dark"
+			android:textSize="16sp"/>
+	
+</androidx.appcompat.widget.LinearLayoutCompat>
