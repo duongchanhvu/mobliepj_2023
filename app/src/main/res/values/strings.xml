@@ -1,4 +1,5 @@
-<resources>
+<resources
+	>
 	<string name="app_name">QuanLyChiTieu</string>
 	<string name="title_activity_login">LoginActivity</string>
 	<string name="prompt_email">Email</string>
@@ -15,7 +16,8 @@
 	<string name="email">Email</string>
 	<string name="username">Username</string>
 	<string name="confirm_password">Confirm Password</string>
-	<string name="already_have_an_account_login_here">Already have an account? Login here.</string>
-	<string name="don_t_have_an_account_register_here">Don\'t have an account? Register here.</string>
+	<string name="already_have_an_account_login_here">Already have an account? <b><u>Login</u></b>.</string>
+	<string name="don_t_have_an_account_register_here">Don\'t have an account?  <b><u>Sign up?</u></b>.</string>
 	<string name="login">Login</string>
+	<string name="forgotpassword">Forgot password?</string>
 </resources>
