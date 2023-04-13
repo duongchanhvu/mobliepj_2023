@@ -7,23 +7,49 @@
 		android:id="@+id/container"
 		android:padding="10dp">
 	
+	<ImageView android:layout_width="200dp" android:layout_height="200dp"
+	           android:src="@drawable/main_logo"
+	           android:layout_gravity="center"
+	           android:layout_marginBottom="10dp"
+	/>
+	
 	<EditText
 			android:id="@+id/editTextEmail"
 			android:layout_width="match_parent"
 			android:layout_height="wrap_content"
-			android:hint="@string/email"/>
+			android:hint="@string/email" android:minHeight="48dp"
+			android:importantForAutofill="no"
+			android:background="@drawable/textview_border"
+			android:inputType="textEmailAddress"
+			android:padding="5dp"
+			android:layout_margin="5dp"
+	/>
 	
 	<EditText
 			android:id="@+id/editTextPassword"
 			android:layout_width="match_parent"
 			android:layout_height="wrap_content"
 			android:hint="@string/password"
-			android:inputType="textPassword"/>
+			android:background="@drawable/textview_border"
+			android:padding="5dp"
+			android:layout_margin="5dp"
+			android:inputType="textPassword" android:minHeight="48dp" android:importantForAutofill="no"/>
+	
+	<TextView android:layout_width="match_parent" android:layout_height="wrap_content"
+	          android:minHeight="48dp"
+	          android:textAlignment="textEnd"
+	          android:text="@string/forgotpassword"/>
 	
 	<Button
 			android:id="@+id/buttonLogin"
 			android:layout_width="match_parent"
 			android:layout_height="wrap_content"
+			android:layout_gravity="center"
+			android:background="@drawable/my_btn"
+			android:textColor="@color/white"
+			android:layout_marginTop="35dp"
+			
+			android:textSize="24sp"
 			android:text="@string/login"/>
 	
 	<TextView
@@ -32,8 +58,8 @@
 			android:layout_height="wrap_content"
 			android:text="@string/don_t_have_an_account_register_here"
 			android:clickable="true"
+			android:layout_marginTop="5dp"
 			android:gravity="center"
-			android:textColor="@android:color/holo_blue_dark"
-			android:textSize="16sp"/>
+			android:textSize="16sp" android:minHeight="48dp"/>
 
 </LinearLayout>
