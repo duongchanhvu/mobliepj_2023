@@ -22,7 +22,7 @@ public class LoginActivity extends AppCompatActivity {
     TextInputEditText email;
     TextInputEditText password;
     Button loginBtn;
-    TextView registerLink;
+    TextView registerLink, resetPasswordLink;
     FirebaseAuth mAuth;
 
     @Override
@@ -34,7 +34,18 @@ public class LoginActivity extends AppCompatActivity {
         password = findViewById(R.id.password);
         registerLink = findViewById(R.id.textViewRegisterLink);
         loginBtn = findViewById(R.id.buttonLogin);
+        resetPasswordLink = findViewById(R.id.resetPasswordLink);
         mAuth = FirebaseAuth.getInstance();
+
+        resetPasswordLink.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent;
+                intent = new Intent(LoginActivity.this, ForgotPassword.class);
+                startActivity(intent);
+                finish();
+            }
+        });
 
         registerLink.setOnClickListener(new View.OnClickListener() {
             @Override
