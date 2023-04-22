@@ -32,4 +32,14 @@
     <string name="account_created_successfully">Account Created Successfully!</string>
     <string name="reset_my_password">Reset my password</string>
     <string name="note_if_the_email_that_you_enter_exists_in_our_system_we_will_send_you_a_reset_password_email">NOTE: If the email that you enter exists in our system, we will send you a reset password email</string>
+    <string name="profile">Profile</string>
+    <string name="reports">Reports</string>
+    <string name="transactions">Transactions</string>
+    <string name="home">Home</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="go_back_to_login">Go back to Login</string>
+    <string name="resetpassword">Reset password</string>
+    <string name="log_out">Log out</string>
+    <string name="change_your_password">Change your password</string>
 </resources>
