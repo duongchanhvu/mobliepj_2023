@@ -10,6 +10,7 @@ import androidx.fragment.app.Fragment;
 
 import androidx.appcompat.widget.Toolbar;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
@@ -18,6 +19,7 @@ import android.widget.Toast;
 
 
 import com.example.quanlychitieu.LoginActivity;
+import com.example.quanlychitieu.MyWallet;
 import com.example.quanlychitieu.R;
 import com.google.firebase.auth.FirebaseAuth;
 
@@ -26,7 +28,7 @@ import java.util.Objects;
 
 public class ProfileFrag extends Fragment {
 
-    TextView logOut;
+    TextView logOut, myWalletLink;
     FirebaseAuth mAuth;
 
     Toolbar toolbar;
@@ -39,11 +41,14 @@ public class ProfileFrag extends Fragment {
         return inflater.inflate(R.layout.fragment_profile, container, false);
     }
 
+
+
+
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-
+        myWalletLink = view.findViewById(R.id.manageWallet);
 
         logOut = view.findViewById(R.id.logoutBtn);
         mAuth = FirebaseAuth.getInstance();
@@ -51,7 +56,6 @@ public class ProfileFrag extends Fragment {
         logOut.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ProfileFrag profileFrag = new ProfileFrag();
                 mAuth.signOut();
 
                 Intent intent = new Intent(getActivity(), LoginActivity.class);
@@ -63,6 +67,15 @@ public class ProfileFrag extends Fragment {
             }
         });
 
+        myWalletLink.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getActivity(), MyWallet.class);
+                startActivity(intent);
+
+//                getActivity().finish();
+            }
+        });
     }
 
 }
