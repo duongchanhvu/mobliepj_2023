@@ -24,6 +24,7 @@
     <!-- The NestedScrollView widget should be the second child of the CoordinatorLayout -->
 
     <!-- The FloatingActionButton widget should be the third child of the CoordinatorLayout -->
+
     <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
