@@ -1,7 +1,9 @@
 package bottomnavigation;
 
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 
+import androidx.appcompat.app.ActionBar;
 import androidx.fragment.app.Fragment;
 
 import android.view.LayoutInflater;
@@ -19,9 +21,7 @@ public class TransactionFrag extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-
         return inflater.inflate(R.layout.fragment_transaction, container, false);
-
 
     }
 }

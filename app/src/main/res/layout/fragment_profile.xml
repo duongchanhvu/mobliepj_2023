@@ -60,7 +60,7 @@
                 android:background="@android:color/darker_gray"/>
 
             <TextView
-                android:id="@+id/app_term"
+                android:id="@+id/privacy"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:drawablePadding="10dp"

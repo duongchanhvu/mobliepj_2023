@@ -22,6 +22,7 @@ import android.widget.Toast;
 import com.example.quanlychitieu.AboutActivity;
 import com.example.quanlychitieu.LoginActivity;
 import com.example.quanlychitieu.MyWallet;
+import com.example.quanlychitieu.PrivacyActivity;
 import com.example.quanlychitieu.R;
 import com.google.firebase.auth.FirebaseAuth;
 
@@ -30,7 +31,7 @@ import java.util.Objects;
 
 public class ProfileFrag extends Fragment {
 
-    TextView logOut, myWalletLink, aboutLink, contactfb;
+    TextView logOut, myWalletLink, aboutLink, contactfb, privacyLink;
     FirebaseAuth mAuth;
 
     Toolbar toolbar;
@@ -55,6 +56,7 @@ public class ProfileFrag extends Fragment {
         logOut = view.findViewById(R.id.logoutBtn);
         mAuth = FirebaseAuth.getInstance();
         aboutLink = view.findViewById(R.id.about);
+        privacyLink = view.findViewById(R.id.privacy);
 
         logOut.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -90,6 +92,15 @@ public class ProfileFrag extends Fragment {
             }
         });
 
+        privacyLink.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getActivity(), PrivacyActivity.class);
+                startActivity(intent);
+
+//                getActivity().finish();
+            }
+        });
     }
 
 }

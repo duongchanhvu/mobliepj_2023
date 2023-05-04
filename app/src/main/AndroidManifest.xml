@@ -36,8 +36,9 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".AboutActivity"
-            android:exported="false" />
+            android:name=".AboutActivity" />
+        <activity
+            android:name=".PrivacyActivity" />
     </application>
 
 </manifest>
