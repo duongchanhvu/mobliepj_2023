@@ -25,6 +25,7 @@ import com.example.quanlychitieu.LoginActivity;
 import com.example.quanlychitieu.MyWallet;
 import com.example.quanlychitieu.PrivacyActivity;
 import com.example.quanlychitieu.R;
+import com.example.quanlychitieu.SendMailActivity;
 import com.google.firebase.auth.FirebaseAuth;
 
 import java.util.Objects;
@@ -32,7 +33,7 @@ import java.util.Objects;
 
 public class ProfileFrag extends Fragment {
 
-    TextView logOut, myWalletLink, aboutLink, contactfb, privacyLink, changePass;
+    TextView logOut, myWalletLink, aboutLink, contactfb, privacyLink, changePass,SendMail;
     FirebaseAuth mAuth;
 
     Toolbar toolbar;
@@ -111,6 +112,18 @@ public class ProfileFrag extends Fragment {
                 startActivity(intent);
 
 //                getActivity().finish();
+            }
+        });
+
+        SendMail = view.findViewById(R.id.SendMail);
+
+        SendMail.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getActivity(), SendMailActivity.class);
+                startActivity(intent);
+                getActivity().finish();
             }
         });
 
