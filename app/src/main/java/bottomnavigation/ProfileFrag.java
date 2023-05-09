@@ -1,7 +1,6 @@
 package bottomnavigation;
 
 import android.content.Intent;
-import android.net.Uri;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -11,7 +10,6 @@ import androidx.fragment.app.Fragment;
 
 import androidx.appcompat.widget.Toolbar;
 import android.view.LayoutInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
@@ -19,19 +17,18 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 
-import com.example.quanlychitieu.AboutActivity;
 import com.example.quanlychitieu.LoginActivity;
-import com.example.quanlychitieu.MyWallet;
-import com.example.quanlychitieu.PrivacyActivity;
+import com.example.quanlychitieu.ProfileActivity;
 import com.example.quanlychitieu.R;
+import com.example.quanlychitieu.SendMailActivity;
 import com.google.firebase.auth.FirebaseAuth;
 
 import java.util.Objects;
 
 
 public class ProfileFrag extends Fragment {
-
-    TextView logOut, myWalletLink, aboutLink, contactfb, privacyLink;
+    TextView SendMail;
+    TextView logOut;
     FirebaseAuth mAuth;
 
     Toolbar toolbar;
@@ -44,23 +41,19 @@ public class ProfileFrag extends Fragment {
         return inflater.inflate(R.layout.fragment_profile, container, false);
     }
 
-
-
-
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        myWalletLink = view.findViewById(R.id.manageWallet);
-        contactfb = view.findViewById(R.id.contact_fb);
+
+
         logOut = view.findViewById(R.id.logoutBtn);
         mAuth = FirebaseAuth.getInstance();
-        aboutLink = view.findViewById(R.id.about);
-        privacyLink = view.findViewById(R.id.privacy);
 
         logOut.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                ProfileFrag profileFrag = new ProfileFrag();
                 mAuth.signOut();
 
                 Intent intent = new Intent(getActivity(), LoginActivity.class);
@@ -72,35 +65,19 @@ public class ProfileFrag extends Fragment {
             }
         });
 
-        myWalletLink.setOnClickListener(new View.OnClickListener() {
+        SendMail = view.findViewById(R.id.SendMail);
+
+        SendMail.setOnClickListener(new View.OnClickListener()
+        {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getActivity(), MyWallet.class);
+                Intent intent = new Intent(getActivity(), SendMailActivity.class);
                 startActivity(intent);
-
-//                getActivity().finish();
+                getActivity().finish();
             }
         });
 
-        aboutLink.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(getActivity(), AboutActivity.class);
-                startActivity(intent);
 
-//                getActivity().finish();
-            }
-        });
-
-        privacyLink.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(getActivity(), PrivacyActivity.class);
-                startActivity(intent);
-
-//                getActivity().finish();
-            }
-        });
     }
 
 }
