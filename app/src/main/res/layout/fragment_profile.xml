@@ -87,19 +87,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
                 android:background="@android:color/darker_gray"/>
-
-            <TextView
-                android:id="@+id/logoutBtn"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:drawablePadding="10dp"
-                android:gravity="center_vertical"
-                android:minHeight="48dp"
-                android:paddingStart="10dp"
-                android:text="@string/log_out"
-                android:textSize="15sp"
-                app:drawableLeftCompat="@drawable/logout_icon" />
-
             <TextView
                 android:id="@+id/SendMail"
                 android:layout_width="match_parent"
@@ -109,6 +96,17 @@
                 android:minHeight="48dp"
                 android:paddingStart="10dp"
                 android:text="Send mail"
+                android:textSize="15sp"
+                app:drawableLeftCompat="@drawable/email_icon" />
+            <TextView
+                android:id="@+id/logoutBtn"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:drawablePadding="10dp"
+                android:gravity="center_vertical"
+                android:minHeight="48dp"
+                android:paddingStart="10dp"
+                android:text="@string/log_out"
                 android:textSize="15sp"
                 app:drawableLeftCompat="@drawable/logout_icon" />
 

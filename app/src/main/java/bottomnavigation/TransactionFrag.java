@@ -1,5 +1,6 @@
 package bottomnavigation;
 
+import android.content.Intent;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 
@@ -14,10 +15,13 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.TextView;
 
 import com.example.quanlychitieu.R;
+import com.example.quanlychitieu.SendMailActivity;
+import com.example.quanlychitieu.TransactionDetailActivity;
 import com.google.firebase.auth.FirebaseAuth;
 
 import adapter.ListViewTransactionAdapter;
@@ -33,8 +37,16 @@ public class TransactionFrag extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         View view = inflater.inflate(R.layout.fragment_transaction, container, false);
-        return view;
+        listView = (ListView)view.findViewById(R.id.list_trans);
 
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                    Intent intent = new Intent(getActivity(), TransactionDetailActivity.class);
+                    startActivity(intent);
+            }
+        });
+        return view;
     }
 
     @Override
@@ -55,4 +67,5 @@ public class TransactionFrag extends Fragment {
     public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {
         super.onCreateOptionsMenu(menu, inflater);
     }
+
 }
