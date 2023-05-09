@@ -16,6 +16,7 @@ import com.google.android.gms.tasks.Task;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
 public class LoginActivity extends AppCompatActivity {
 
@@ -23,6 +24,7 @@ public class LoginActivity extends AppCompatActivity {
     TextInputEditText password;
     Button loginBtn;
     TextView registerLink, resetPasswordLink;
+    FirebaseUser currentUser;
     FirebaseAuth mAuth;
 
     @Override
@@ -36,6 +38,11 @@ public class LoginActivity extends AppCompatActivity {
         loginBtn = findViewById(R.id.buttonLogin);
         resetPasswordLink = findViewById(R.id.resetPasswordLink);
         mAuth = FirebaseAuth.getInstance();
+
+//        if (mAuth != null) {
+//            currentUser = mAuth.getCurrentUser();
+//
+//        }
 
         resetPasswordLink.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -83,6 +90,7 @@ public class LoginActivity extends AppCompatActivity {
                                     // Sign in success, update UI with the signed-in user's information
                                     Toast.makeText(LoginActivity.this, "Login Successfully.",
                                             Toast.LENGTH_SHORT).show();
+
 
                                     Intent intent = new Intent(getApplicationContext(),MainActivity.class);
                                     startActivity(intent);
