@@ -123,7 +123,6 @@ public class ProfileFrag extends Fragment {
             public void onClick(View v) {
                 Intent intent = new Intent(getActivity(), SendMailActivity.class);
                 startActivity(intent);
-                getActivity().finish();
             }
         });
 
