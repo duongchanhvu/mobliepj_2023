@@ -1,6 +1,7 @@
 package bottomnavigation;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -18,8 +19,11 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 
+import com.example.quanlychitieu.AboutActivity;
+import com.example.quanlychitieu.ChangePassword;
 import com.example.quanlychitieu.LoginActivity;
 import com.example.quanlychitieu.MyWallet;
+import com.example.quanlychitieu.PrivacyActivity;
 import com.example.quanlychitieu.R;
 import com.google.firebase.auth.FirebaseAuth;
 
@@ -28,7 +32,7 @@ import java.util.Objects;
 
 public class ProfileFrag extends Fragment {
 
-    TextView logOut, myWalletLink;
+    TextView logOut, myWalletLink, aboutLink, contactfb, privacyLink, changePass;
     FirebaseAuth mAuth;
 
     Toolbar toolbar;
@@ -49,9 +53,12 @@ public class ProfileFrag extends Fragment {
         super.onViewCreated(view, savedInstanceState);
 
         myWalletLink = view.findViewById(R.id.manageWallet);
-
+        contactfb = view.findViewById(R.id.contact_fb);
         logOut = view.findViewById(R.id.logoutBtn);
         mAuth = FirebaseAuth.getInstance();
+        aboutLink = view.findViewById(R.id.about);
+        privacyLink = view.findViewById(R.id.privacy);
+        changePass = view.findViewById(R.id.changePassword);
 
         logOut.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -76,6 +83,37 @@ public class ProfileFrag extends Fragment {
 //                getActivity().finish();
             }
         });
+
+        aboutLink.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getActivity(), AboutActivity.class);
+                startActivity(intent);
+
+//                getActivity().finish();
+            }
+        });
+
+        privacyLink.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getActivity(), PrivacyActivity.class);
+                startActivity(intent);
+
+//                getActivity().finish();
+            }
+        });
+
+        changePass.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getActivity(), ChangePassword.class);
+                startActivity(intent);
+
+//                getActivity().finish();
+            }
+        });
+
     }
 
 }

@@ -1,31 +1,20 @@
 package com.example.quanlychitieu;
 
+import android.graphics.drawable.ColorDrawable;
+import android.os.Bundle;
+import android.view.MenuItem;
+
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.content.Intent;
-import android.graphics.Color;
-import android.graphics.drawable.ColorDrawable;
-import android.os.Bundle;
-import android.view.Menu;
-import android.view.MenuItem;
-
-public class MyWallet extends AppCompatActivity {
-
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_my_wallet);
-
+public class PrivacyActivity extends AppCompatActivity {
+    protected void onCreate(Bundle saveInstanceState) {
+        super.onCreate(saveInstanceState);
+        setContentView(R.layout.activity_privacy);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         ActionBar actionBar = getSupportActionBar();
         actionBar.setBackgroundDrawable(new ColorDrawable(getResources().getColor(R.color.lavender)));
-
-    }
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.seach, menu);
-        return true;
     }
 
     @Override
@@ -35,11 +24,12 @@ public class MyWallet extends AppCompatActivity {
                 // Handle back button click here
                 finish();
                 return true;
-            case R.id.action_search:
-                // Handle search icon click here
-                return true;
+//          case R.id.action_search:
+//                // Handle search icon click here
+//                return true;
             default:
                 return super.onOptionsItemSelected(item);
         }
     }
+
 }
