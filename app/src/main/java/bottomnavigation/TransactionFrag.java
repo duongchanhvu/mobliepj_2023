@@ -10,6 +10,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
@@ -32,6 +34,7 @@ public class TransactionFrag extends Fragment {
         super.onCreate(savedInstanceState);
         View view = inflater.inflate(R.layout.fragment_transaction, container, false);
         return view;
+
     }
 
     @Override
@@ -40,5 +43,16 @@ public class TransactionFrag extends Fragment {
         listView = (ListView)view.findViewById(R.id.list_trans);
         ListViewTransactionAdapter lvTransAdapter = new ListViewTransactionAdapter(getActivity().getApplicationContext(), itemList,itemText2, itemText3, itemImage);
         listView.setAdapter(lvTransAdapter);
+    }
+
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setHasOptionsMenu(true);
+    }
+
+    @Override
+    public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {
+        super.onCreateOptionsMenu(menu, inflater);
     }
 }

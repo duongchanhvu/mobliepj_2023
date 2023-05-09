@@ -15,40 +15,14 @@
         android:layout_height="wrap_content"
         android:orientation="vertical">
 
-        <androidx.cardview.widget.CardView
+        <ListView
+            android:id="@+id/list_mywallet"
             android:layout_width="match_parent"
-            android:layout_height="50dp"
-            app:cardCornerRadius="16dp"
-            app:cardElevation="8dp"
-            android:layout_margin="15dp">
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_vertical"
-                android:drawableLeft="@drawable/cash_icon"
-                android:drawablePadding="10dp"
-                android:text="Cash: 3,500,000"
-                android:textSize="24dp"
-                android:layout_margin="10dp"/>
-        </androidx.cardview.widget.CardView>
-
-        <androidx.cardview.widget.CardView
-            android:layout_width="match_parent"
-            android:layout_height="50dp"
-            app:cardCornerRadius="16dp"
-            app:cardElevation="8dp"
-            android:layout_margin="15dp">
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_vertical"
-                android:drawableLeft="@drawable/cash_icon"
-                android:drawablePadding="10dp"
-                android:text="Cash: 3,500,000"
-                android:textSize="24dp"
-                android:layout_margin="10dp"/>
-        </androidx.cardview.widget.CardView>
-
+            android:layout_height="match_parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
     </LinearLayout>
 
 
