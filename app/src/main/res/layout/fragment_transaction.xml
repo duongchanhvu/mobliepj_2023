@@ -9,29 +9,13 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical">
-
-        <LinearLayout
+        <androidx.appcompat.widget.Toolbar
+            xmlns:android="http://schemas.android.com/apk/res/android"
+            android:id="@+id/toolbar"
             android:layout_width="match_parent"
-            android:layout_height="60dp"
+            android:layout_height="?attr/actionBarSize"
             android:background="@color/lavender"
-            android:orientation="horizontal">
-
-            <TextView
-                android:id="@+id/title1"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="Transaction"
-                android:textColor="@android:color/black"
-                android:textSize="30sp" />
-
-            <ImageView
-                android:id="@+id/notification_image_view2"
-                android:layout_width="30dp"
-                android:layout_height="30dp"
-                android:contentDescription="Calendar"
-                android:src="@drawable/calendar_icon" />
-        </LinearLayout>
+            android:title="My App Title" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -75,6 +59,7 @@
         <ListView
             android:id="@+id/list_trans"
             android:layout_width="match_parent"
+            android:paddingBottom="60dp"
             android:layout_height="match_parent"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
