@@ -9,6 +9,7 @@
     android:orientation="vertical"
     tools:context=".TransactionDetailActivity">
 
+
         <ImageView
             android:layout_width="95dp"
             android:layout_height="104dp"

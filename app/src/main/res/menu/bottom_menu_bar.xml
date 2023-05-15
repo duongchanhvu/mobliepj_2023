@@ -8,9 +8,6 @@
 		android:id="@+id/transaction"
 		android:title="@string/transactions"
 		android:icon="@drawable/transaction_icon" />
-	<item
-		android:id="@+id/add"
-		android:title="" />
 
 	<item
 		android:id="@+id/report"

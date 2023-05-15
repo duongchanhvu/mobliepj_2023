@@ -7,7 +7,10 @@ import androidx.fragment.app.FragmentTransaction;
 
 import android.annotation.SuppressLint;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
 
 import com.example.quanlychitieu.databinding.ActivityMainBinding;
 
@@ -19,6 +22,7 @@ import bottomnavigation.TransactionFrag;
 public class MainActivity extends AppCompatActivity {
 
     ActivityMainBinding binding;
+    Button addTrans;
 
     @SuppressLint("NonConstantResourceId")
     @Override
@@ -51,7 +55,15 @@ public class MainActivity extends AppCompatActivity {
             }
 
             return true;
+            changePass.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent = new Intent(getActivity(), ChangePassword.class);
+                    startActivity(intent);
 
+//                getActivity().finish();
+                }
+            });
         });
     }
 
@@ -61,5 +73,6 @@ public class MainActivity extends AppCompatActivity {
         fragmentTransaction.replace(R.id.frame_layout, fragment);
         fragmentTransaction.commit();
     }
+
 
 }

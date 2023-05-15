@@ -58,6 +58,7 @@
             android:name=".ChangePassword"/>
         <activity
             android:name=".TransactionDetailActivity"/>
+        <activity android:name=".AddTransactionActivity"/>
     </application>
 
 
