@@ -7,9 +7,12 @@ import androidx.fragment.app.FragmentTransaction;
 
 import android.annotation.SuppressLint;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 
 import com.example.quanlychitieu.databinding.ActivityMainBinding;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import bottomnavigation.HomeFrag;
 import bottomnavigation.ProfileFrag;
@@ -19,6 +22,7 @@ import bottomnavigation.TransactionFrag;
 public class MainActivity extends AppCompatActivity {
 
     ActivityMainBinding binding;
+    FloatingActionButton addTransactionBtn;
 
     @SuppressLint("NonConstantResourceId")
     @Override
@@ -26,6 +30,8 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
+
+        addTransactionBtn = findViewById(R.id.addTransactionBtn);
 
         replaceFrags(new HomeFrag());
 
@@ -49,10 +55,19 @@ public class MainActivity extends AppCompatActivity {
                     replaceFrags(new ProfileFrag());
                     break;
             }
-
             return true;
-
         });
+
+        addTransactionBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent;
+                intent = new Intent(MainActivity.this, AddTransaction.class);
+                startActivity(intent);
+//                finish();
+            }
+        });
+
     }
 
     private void replaceFrags(Fragment fragment) {
