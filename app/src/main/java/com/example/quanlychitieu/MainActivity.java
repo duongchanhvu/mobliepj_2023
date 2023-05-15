@@ -1,5 +1,7 @@
 package com.example.quanlychitieu;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
@@ -7,8 +9,11 @@ import androidx.fragment.app.FragmentTransaction;
 
 import android.annotation.SuppressLint;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.PersistableBundle;
+import android.util.AttributeSet;
 import android.view.View;
 import android.widget.Button;
 
@@ -23,7 +28,13 @@ public class MainActivity extends AppCompatActivity {
 
     ActivityMainBinding binding;
     Button addTrans;
+    View view;
 
+    private void buttonAdd(Button addTrans){
+        addTrans = view.findViewById(R.id.add_transaction_btn);
+        Intent intent = new Intent(MainActivity.this, AddTransactionActivity.class);
+        startActivity(intent);
+    }
     @SuppressLint("NonConstantResourceId")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,7 +43,6 @@ public class MainActivity extends AppCompatActivity {
         setContentView(binding.getRoot());
 
         replaceFrags(new HomeFrag());
-
         binding.bottomNavigationView.setBackground(null);
 
         binding.bottomNavigationView.setOnItemSelectedListener(item -> {
@@ -41,10 +51,13 @@ public class MainActivity extends AppCompatActivity {
                     replaceFrags(new HomeFrag());
                     break;
 
+               case R.id.add_transaction_btn:
+                   buttonAdd(addTrans);
+                   break;
+
                 case R.id.transaction:
                     replaceFrags(new TransactionFrag());
                     break;
-
                 case R.id.report:
                     replaceFrags(new ReportFrag());
                     break;
@@ -55,15 +68,6 @@ public class MainActivity extends AppCompatActivity {
             }
 
             return true;
-            changePass.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    Intent intent = new Intent(getActivity(), ChangePassword.class);
-                    startActivity(intent);
-
-//                getActivity().finish();
-                }
-            });
         });
     }
 
@@ -73,6 +77,5 @@ public class MainActivity extends AppCompatActivity {
         fragmentTransaction.replace(R.id.frame_layout, fragment);
         fragmentTransaction.commit();
     }
-
 
 }
