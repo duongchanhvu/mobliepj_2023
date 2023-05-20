@@ -16,11 +16,16 @@ import android.widget.Toast;
 
 
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+
+import java.util.HashMap;
 
 public  class RegisterActivity extends AppCompatActivity {
 
@@ -30,6 +35,7 @@ public  class RegisterActivity extends AppCompatActivity {
     TextInputEditText editTextPassword, editTextConfirmPassword;
 
     FirebaseAuth mAuth;
+    FirebaseDatabase firebaseDatabase;
 
     public void showSuccessDialog(){
         LayoutInflater inflater = LayoutInflater.from(this);
@@ -102,27 +108,60 @@ public  class RegisterActivity extends AppCompatActivity {
                     Toast.makeText(RegisterActivity.this, "Your password does not match", Toast.LENGTH_SHORT).show();
                     return;
                 }
+                else {
+                    //Neu nhu khong co loi thi thuc hien ham luu du lieu
+                    registerUser(email, password);
+                }
 
-                mAuth.createUserWithEmailAndPassword(email, password)
-                        .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
-                            @Override
-                            public void onComplete(@NonNull Task<AuthResult> task) {
-                                if (task.isSuccessful()) {
-                                    Toast.makeText(RegisterActivity.this, "Account created",
-                                            Toast.LENGTH_SHORT).show();
-                                    showSuccessDialog();
-                                } else {
-                                    // If sign in fails, display a message to the user.
-                                    Toast.makeText(RegisterActivity.this, "Authentication failed.",
-                                            Toast.LENGTH_SHORT).show();
-                                }
-                            }
-                        });
+//                mAuth.createUserWithEmailAndPassword(email, password)
+//                        .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+//                            @Override
+//                            public void onComplete(@NonNull Task<AuthResult> task) {
+//                                if (task.isSuccessful()) {
+//                                    Toast.makeText(RegisterActivity.this, "Account created",
+//                                            Toast.LENGTH_SHORT).show();
+//                                    showSuccessDialog();
+//                                } else {
+//                                    // If sign in fails, display a message to the user.
+//                                    Toast.makeText(RegisterActivity.this, "Authentication failed.",
+//                                            Toast.LENGTH_SHORT).show();
+//                                }
+//                            }
+//                        });
 
             }
         });
-
-
-
+    }
+    //Ham thuc hien luu du lieu len Realtime Database
+    private void registerUser(String Email, final String passWord) {
+        mAuth.createUserWithEmailAndPassword(Email, passWord).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+            @Override
+            public void onComplete(@NonNull Task<AuthResult> task) {
+                if (task.isSuccessful()) {
+                    FirebaseUser user = mAuth.getCurrentUser();
+                    String username = user.getEmail();
+                    String uid = user.getUid();
+                    HashMap<Object, String> users= new HashMap<>();
+                    users.put("email", username);
+                    users.put("uid", uid);
+//                    users.put("password", passWord);
+                    FirebaseDatabase database = FirebaseDatabase.getInstance();
+                    DatabaseReference reference = database.getReference("Users");
+                    reference.child(uid).setValue(users);
+                    Toast.makeText(RegisterActivity.this, "Registered User " + user.getEmail() + " successfully", Toast.LENGTH_LONG).show();
+                    Intent mainIntent = new Intent(RegisterActivity.this, LoginActivity.class);
+                    mainIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                    startActivity(mainIntent);
+                    finish();
+                } else {
+                    Toast.makeText(RegisterActivity.this, "Authentication failed.", Toast.LENGTH_LONG).show();
+                }
+            }
+        }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+                Toast.makeText(RegisterActivity.this, "Error Occurred", Toast.LENGTH_LONG).show();
+            }
+        });
     }
 }

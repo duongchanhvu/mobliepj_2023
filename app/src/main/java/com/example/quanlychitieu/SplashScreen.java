@@ -26,9 +26,9 @@ public class SplashScreen extends AppCompatActivity {
         mAuth = FirebaseAuth.getInstance();
 
         // checking if user is null or not
-//        if (mAuth != null) {
-//            currentUser = mAuth.getCurrentUser();
-//        }
+        if (mAuth != null) {
+            currentUser = mAuth.getCurrentUser();
+        }
 
 
         new Handler().postDelayed(new Runnable() {
@@ -41,12 +41,12 @@ public class SplashScreen extends AppCompatActivity {
                     finish();
                 }
                 else {
-                    Intent mainIntent = new Intent(SplashScreen.this, ProfileActivity.class);
+                    Intent mainIntent = new Intent(SplashScreen.this, MainActivity.class);
                     mainIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                     startActivity(mainIntent);
                     finish();
                 }
             }
-        }, 1000);
+        }, 0);
     }
 }

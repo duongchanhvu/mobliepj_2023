@@ -18,6 +18,7 @@ import android.view.View;
 import android.widget.Button;
 
 import com.example.quanlychitieu.databinding.ActivityMainBinding;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import bottomnavigation.HomeFrag;
 import bottomnavigation.ProfileFrag;
@@ -27,14 +28,10 @@ import bottomnavigation.TransactionFrag;
 public class MainActivity extends AppCompatActivity {
 
     ActivityMainBinding binding;
-    Button addTrans;
+    FloatingActionButton addTrans;
     View view;
 
-    private void buttonAdd(Button addTrans){
-        addTrans = view.findViewById(R.id.add_transaction_btn);
-        Intent intent = new Intent(MainActivity.this, AddTransactionActivity.class);
-        startActivity(intent);
-    }
+
     @SuppressLint("NonConstantResourceId")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,16 +41,12 @@ public class MainActivity extends AppCompatActivity {
 
         replaceFrags(new HomeFrag());
         binding.bottomNavigationView.setBackground(null);
-
+//        addTrans = view.findViewById(R.id.add_transaction_btn);
         binding.bottomNavigationView.setOnItemSelectedListener(item -> {
             switch (item.getItemId()){
                 case R.id.home:
                     replaceFrags(new HomeFrag());
                     break;
-
-               case R.id.add_transaction_btn:
-                   buttonAdd(addTrans);
-                   break;
 
                 case R.id.transaction:
                     replaceFrags(new TransactionFrag());
@@ -68,6 +61,13 @@ public class MainActivity extends AppCompatActivity {
             }
 
             return true;
+        });
+        binding.addTransactionBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MainActivity.this, AddTransactionActivity.class);
+                startActivity(intent);
+            }
         });
     }
 
