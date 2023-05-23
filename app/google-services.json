@@ -1,6 +1,7 @@
 {
   "project_info": {
     "project_number": "935945083240",
+    "firebase_url": "https://savemoney-8233e-default-rtdb.asia-southeast1.firebasedatabase.app",
     "project_id": "savemoney-8233e",
     "storage_bucket": "savemoney-8233e.appspot.com"
   },
@@ -14,7 +15,15 @@
       },
       "oauth_client": [
         {
-          "client_id": "935945083240-9kif5m8g83ikm8ihjfgqshg1095bge1g.apps.googleusercontent.com",
+          "client_id": "935945083240-rv5gnkoavrpikgn0kf89fepcnv2vhigg.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.quanlychitieu",
+            "certificate_hash": "2afce738b82023a2e136b7e0d9bfe07b0d3223cc"
+          }
+        },
+        {
+          "client_id": "935945083240-amfvp08avpn2qmqa72a7c8p66jrnf43u.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
