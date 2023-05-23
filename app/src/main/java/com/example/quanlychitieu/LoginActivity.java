@@ -39,10 +39,10 @@ public class LoginActivity extends AppCompatActivity {
         resetPasswordLink = findViewById(R.id.resetPasswordLink);
         mAuth = FirebaseAuth.getInstance();
 
-//        if (mAuth != null) {
-//            currentUser = mAuth.getCurrentUser();
-//
-//        }
+        if (mAuth != null) {
+            currentUser = mAuth.getCurrentUser();
+
+        }
 
         resetPasswordLink.setOnClickListener(new View.OnClickListener() {
             @Override
