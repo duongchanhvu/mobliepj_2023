@@ -24,7 +24,7 @@ public class LoginActivity extends AppCompatActivity {
     TextInputEditText password;
     Button loginBtn;
     TextView registerLink, resetPasswordLink;
-    FirebaseUser currentUser;
+    FirebaseUser user;
     FirebaseAuth mAuth;
 
     @Override
@@ -40,8 +40,6 @@ public class LoginActivity extends AppCompatActivity {
         mAuth = FirebaseAuth.getInstance();
 
         if (mAuth != null) {
-            currentUser = mAuth.getCurrentUser();
-
         }
 
         resetPasswordLink.setOnClickListener(new View.OnClickListener() {
@@ -103,6 +101,8 @@ public class LoginActivity extends AppCompatActivity {
                                 }
                             }
                         });
+
+
 
             }
         });

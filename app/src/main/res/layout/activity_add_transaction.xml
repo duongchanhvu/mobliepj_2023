@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -23,11 +22,11 @@
                 android:layout_height="45dp" />
 
             <EditText
+                android:id="@+id/transactionAmount"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:paddingLeft="15dp"
-                android:hint="0 đ" android:textSize="24dp"
-                android:textColorHint="@color/lightGreen"/>
+                android:hint="0 đ" android:textSize="24sp" />
 
         </LinearLayout>
 
@@ -66,6 +65,7 @@
                 android:src="@drawable/notes_icon"/>
 
             <EditText
+                android:id="@+id/transNote"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:paddingLeft="15dp"

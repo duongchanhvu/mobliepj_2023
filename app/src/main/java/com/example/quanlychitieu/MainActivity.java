@@ -13,16 +13,24 @@ import android.view.View;
 
 import com.example.quanlychitieu.databinding.ActivityMainBinding;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+
+import java.util.Objects;
 
 import bottomnavigation.HomeFrag;
 import bottomnavigation.ProfileFrag;
 import bottomnavigation.ReportFrag;
 import bottomnavigation.TransactionFrag;
+import objects.User;
 
 public class MainActivity extends AppCompatActivity {
 
     ActivityMainBinding binding;
     FloatingActionButton addTransactionBtn;
+
+    FirebaseAuth myAuth;
+    FirebaseUser currentUser;
 
     @SuppressLint("NonConstantResourceId")
     @Override
@@ -30,6 +38,14 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
+        myAuth = FirebaseAuth.getInstance();
+        currentUser = FirebaseAuth.getInstance().getCurrentUser();
+
+        if (myAuth != null) {
+            String email = Objects.requireNonNull(currentUser). getEmail();
+            String userID = currentUser.getUid();
+            User u = new User(email, userID);
+        }
 
         addTransactionBtn = findViewById(R.id.addTransactionBtn);
 
@@ -57,6 +73,7 @@ public class MainActivity extends AppCompatActivity {
             }
             return true;
         });
+
 
         addTransactionBtn.setOnClickListener(new View.OnClickListener() {
             @Override
