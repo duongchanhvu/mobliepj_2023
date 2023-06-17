@@ -4,7 +4,7 @@ public class User {
     public String email;
     public String userID;
 
-    public int balance:
+    public int balance;
 
     public User(){
 
