@@ -115,22 +115,26 @@ public  class RegisterActivity extends AppCompatActivity {
         });
     }
     //Ham thuc hien luu du lieu len Realtime Database
-    private void registerUser(String Email, final String passWord) {
-        mAuth.createUserWithEmailAndPassword(Email, passWord).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+    private void registerUser(String email, final String password) {
+        mAuth.createUserWithEmailAndPassword(email, password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
                 if (task.isSuccessful()) {
                     FirebaseUser user = mAuth.getCurrentUser();
                     String username = user.getEmail();
                     String uid = user.getUid();
-                    HashMap<Object, String> users= new HashMap<>();
+                    HashMap<String, Object> users = new HashMap<>();
                     users.put("email", username);
                     users.put("uid", uid);
-                    users.put("password", passWord);
+                    users.put("password", password);
+                    users.put("balance", 0); // Set the balance as a number, e.g., 0
+
                     FirebaseDatabase database = FirebaseDatabase.getInstance();
                     DatabaseReference reference = database.getReference("Users");
                     reference.child(uid).setValue(users);
-                    Toast.makeText(RegisterActivity.this, "Register for user " + user.getEmail() + " successfully", Toast.LENGTH_LONG).show();
+
+                    Toast.makeText(RegisterActivity.this, "Registered user " + user.getEmail() + " successfully", Toast.LENGTH_LONG).show();
+
                     Intent mainIntent = new Intent(RegisterActivity.this, LoginActivity.class);
                     mainIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                     startActivity(mainIntent);
@@ -142,8 +146,9 @@ public  class RegisterActivity extends AppCompatActivity {
         }).addOnFailureListener(new OnFailureListener() {
             @Override
             public void onFailure(@NonNull Exception e) {
-                Toast.makeText(RegisterActivity.this, "Error Occurred", Toast.LENGTH_LONG).show();
+                Toast.makeText(RegisterActivity.this, "An error occurred", Toast.LENGTH_LONG).show();
             }
         });
     }
+
 }
