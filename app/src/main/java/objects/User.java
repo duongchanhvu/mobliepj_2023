@@ -3,7 +3,6 @@ package objects;
 public class User {
     public String email;
     public String userID;
-
     public double balance;
 
     public User(){
