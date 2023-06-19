@@ -22,20 +22,18 @@
                 android:orientation="horizontal"
                 android:background="@color/lavender">
 
-                <TextView
-                    android:id="@+id/balance_text_view"
+                <View
                     android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="13,500,000 đ"
-                    android:textColor="@android:color/black"
-                    android:textSize="24sp" />
+                    android:layout_height="0dp"
+                    android:layout_weight="1" />
+
                 <ImageView
                     android:id="@+id/notification_image_view"
                     android:layout_width="30dp"
                     android:layout_height="30dp"
-                    android:src="@drawable/baseline_notifications_24"
-                    android:contentDescription="Notification Bell" />
+                    android:contentDescription="Notification Bell"
+                    android:src="@drawable/baseline_notifications_24" />
+
             </LinearLayout>
 
             <RelativeLayout
@@ -43,81 +41,41 @@
                 android:layout_height="match_parent">
 
                 <androidx.cardview.widget.CardView
+                    android:paddingTop="10dp"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="15dp"
-                    android:layout_marginTop="15dp"
-                    android:layout_marginEnd="15dp"
-                    android:layout_marginBottom="15dp"
+                    android:layout_margin="5dp"
+                    android:layout_marginStart="5dp"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginEnd="5dp"
+                    android:layout_marginBottom="5dp"
+                    android:padding="10dp"
                     app:cardCornerRadius="16dp"
                     app:cardElevation="8dp">
 
-                    <TableLayout
+                    <LinearLayout
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_centerInParent="true"
-                        android:layout_margin="8dp">
+                        android:layout_height="match_parent"
+                        android:layout_margin="10dp"
+                        android:orientation="vertical"
+                        android:padding="10dp">
 
-                        <TableRow
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:gravity="center">
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_marginEnd="80dp"
-                                android:minWidth="100dp"
-                                android:padding="25dp"
-                                android:text="My wallet"
-                                android:textSize="24sp"
-                                android:textStyle="bold" />
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:gravity="right"
-                                android:minWidth="150dp"
-                                android:padding="20dp"
-                                android:text="View all"
-                                android:textColor="@color/lavender"
-                                android:textSize="16sp"
-                                android:textStyle="bold" />
-
-                        </TableRow>
-
-                        <View
+                        <TextView
                             android:layout_width="match_parent"
-                            android:layout_height="1dp"
-                            android:background="@android:color/darker_gray" />
-
-                        <TableRow
-                            android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:gravity="center">
+                            android:padding="10dp"
+                            android:text="Your balance"
+                            android:textAlignment="center"
+                            android:textSize="20sp"/>
 
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="40dp"
+                            android:padding="10dp"
+                            android:text="300,000,000"
+                            android:textAlignment="center"/>
+                    </LinearLayout>
 
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_marginEnd="80dp"
-                                android:minWidth="100dp"
-                                android:padding="25dp"
-                                android:text="Cash"
-                                android:textSize="16sp"
-                                android:textStyle="bold" />
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:gravity="center_vertical|right"
-                                android:minWidth="170dp"
-                                android:minHeight="60dp"
-                                android:padding="20dp"
-                                android:text="100,000,000,000 đ"
-                                android:textStyle="bold" />
-                        </TableRow>
-                    </TableLayout>
                 </androidx.cardview.widget.CardView>
             </RelativeLayout>
 

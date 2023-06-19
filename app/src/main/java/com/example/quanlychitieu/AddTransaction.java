@@ -43,43 +43,20 @@ public class AddTransaction extends AppCompatActivity {
     EditText transactionDate, wallet;
     Calendar calendar;
 
+    String isPaying;
+
     User user;
 
     FirebaseUser currentUser;
-    FirebaseAuth myAuth;
     DatabaseReference mDatabase;
 
     String[] options = {
-            "Eating",
-            "Transporting",
-            "Renting",
-            "Electricity bill",
-            "Water bill",
-            "Internet bill",
-            "Gas",
-            "Others"
+            "Pay",
+            "Earn"
     };
 
     String[] walletList = {
-            "Cash",
-            "Momo",
-            "ZaloPay",
-            "BIDV",
-            "Others",
-            "Cash",
-            "Momo",
-            "ZaloPay",
-            "BIDV",
-            "Others",
-            "Cash",
-            "Momo",
-            "ZaloPay",
-            "BIDV",
-            "Others",
-            "Cash",
-            "Momo",
-            "ZaloPay",
-            "BIDV",
+            "Cash" // Can add more later
     };
 
     @Override
@@ -97,24 +74,24 @@ public class AddTransaction extends AppCompatActivity {
         groupOfTrans = findViewById(R.id.groupOfTransaction);
         note = findViewById(R.id.transNote);
         transactionDate = findViewById(R.id.dateOfTransaction);
-        wallet = findViewById(R.id.pickWallet);
+//        wallet = findViewById(R.id.pickWallet);
         calendar = Calendar.getInstance();
 
         mDatabase = FirebaseDatabase.getInstance().getReference();
 
-        wallet.setText("Cash");
+//        wallet.setText("Cash");
 
         currentUser = FirebaseAuth.getInstance().getCurrentUser();
         String email = Objects.requireNonNull(currentUser). getEmail();
         String userID = currentUser.getUid();
         user = new User(email, userID);
 
-        wallet.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                showWalletOptionDialog();
-            }
-        });
+//        wallet.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                showWalletOptionDialog();
+//            }
+//        });
 
 
         //set transactionDate = today by default
@@ -200,53 +177,79 @@ public class AddTransaction extends AppCompatActivity {
         datePickerDialog.show();
     }
 
-    public void showWalletOptionDialog() {
-        AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setTitle("Select wallet")
-                .setItems(walletList, new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        String selectedWallet = walletList[which];
-                        wallet.setText(selectedWallet);
-                        dialog.dismiss();
-                    }
-                });
-        AlertDialog dialog = builder.create();
-        dialog.show();
-    }
+//    public void showWalletOptionDialog() {
+//        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+//        builder.setTitle("Select wallet")
+//                .setItems(walletList, new DialogInterface.OnClickListener() {
+//                    @Override
+//                    public void onClick(DialogInterface dialog, int which) {
+//                        String selectedWallet = walletList[which];
+//                        wallet.setText(selectedWallet);
+//                        dialog.dismiss();
+//                    }
+//                });
+//        AlertDialog dialog = builder.create();
+//        dialog.show();
+//    }
 
-    public void saveTransaction(){
-        String transAmount = amount.getText().toString();
-        String transGr = groupOfTrans.getText().toString();
+    public void saveTransaction() {
+        String transAmountString = amount.getText().toString();
+        double transAmount = Double.parseDouble(transAmountString);
+        boolean isPay = groupOfTrans.getText().toString().equals("Pay");
         String transNote = note.getText().toString();
         String transDate = String.valueOf(transactionDate.getText());
         String userID = user.userID;
 
-
-
         Map<String, Object> transactionData = new HashMap<>();
         transactionData.put("Amount", transAmount);
-        transactionData.put("GroupOfTransaction", transGr);
+        transactionData.put("IsPay", isPay);
         transactionData.put("Note", transNote);
         transactionData.put("Date", transDate);
         transactionData.put("UserID", userID);
 
         DatabaseReference transactionRef = mDatabase.child("Transactions").push();
-
         transactionRef.setValue(transactionData, new DatabaseReference.CompletionListener() {
             @Override
             public void onComplete(@Nullable DatabaseError error, @NonNull DatabaseReference ref) {
                 if (error == null) {
-                    // Data saved successfully
+                    // Transaction data saved successfully
                     Toast.makeText(AddTransaction.this, "Transaction saved successfully", Toast.LENGTH_SHORT).show();
 
+                    // Update the balance in the user table based on the transaction type
+                    DatabaseReference userRef = mDatabase.child("Users").child(userID);
+                    userRef.addListenerForSingleValueEvent(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                            // Retrieve the current balance value
+                            Long currentBalance = dataSnapshot.child("balance").getValue(Long.class);
+                            if (currentBalance != null) {
+                                double currentBalanceValue = currentBalance.doubleValue();
+
+                                // Calculate the new balance based on the transaction type
+                                double transactionAmount = transAmount;
+                                double newBalance = isPay ? currentBalanceValue - transactionAmount : currentBalanceValue + transactionAmount;
+
+                                // Update the balance field in the user table
+                                userRef.child("balance").setValue(newBalance);
+                            }
+                        }
+
+                        @Override
+                        public void onCancelled(@NonNull DatabaseError databaseError) {
+                            // Handle the error condition, if any
+                            Toast.makeText(AddTransaction.this, "Failed to update balance: " + databaseError.getMessage(), Toast.LENGTH_SHORT).show();
+                        }
+                    });
                 } else {
-                    // Failed to save data
+                    // Failed to save transaction data
                     Toast.makeText(AddTransaction.this, "Failed to save transaction: " + error.getMessage(), Toast.LENGTH_SHORT).show();
                 }
             }
         });
     }
+
+
+
 
     public void showUserTransactionData() {
         DatabaseReference transactionRef = mDatabase.child("Transactions");
@@ -258,7 +261,7 @@ public class AddTransaction extends AppCompatActivity {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 for (DataSnapshot transactionSnapshot : dataSnapshot.getChildren()) {
-                    String amount = transactionSnapshot.child("Amount").getValue(String.class);
+                    Double amount = transactionSnapshot.child("Amount").getValue(Double.class);
                     String group = transactionSnapshot.child("GroupOfTransaction").getValue(String.class);
                     String note = transactionSnapshot.child("Note").getValue(String.class);
                     String date = transactionSnapshot.child("Date").getValue(String.class);
