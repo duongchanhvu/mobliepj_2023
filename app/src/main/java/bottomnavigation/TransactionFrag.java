@@ -60,7 +60,7 @@ public class TransactionFrag extends Fragment {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 for (DataSnapshot dataSnapshot1 : dataSnapshot.getChildren()) {
-                    Double amount = dataSnapshot1.child("Amount").getValue(Double.class);
+                    double amount = dataSnapshot1.child("Amount").getValue(Double.class);
                     String date = dataSnapshot1.child("Date").getValue().toString();
                     String note = dataSnapshot1.child("Note").getValue().toString();
                     Boolean isPay = dataSnapshot1.child("IsPay").getValue(Boolean.class);
@@ -109,7 +109,6 @@ public class TransactionFrag extends Fragment {
 
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
-                System.out.println("Failed to read data: " + databaseError.getMessage());
             }
         });
     }

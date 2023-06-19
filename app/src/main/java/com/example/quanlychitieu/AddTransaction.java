@@ -209,7 +209,7 @@ public class AddTransaction extends AppCompatActivity {
         transactionData.put("UserID", userID);
 
         DatabaseReference transactionRef = mDatabase.child("Transactions").push();
-        Transaction transaction = new Transaction(transAmount, isPay, transNote, transDate, userID);
+//        Transaction transaction = new Transaction(transAmount, isPay, transNote, transDate, userID);
         transactionRef.setValue(transactionData, new DatabaseReference.CompletionListener() {
             @Override
             public void onComplete(@Nullable DatabaseError error, @NonNull DatabaseReference ref) {
