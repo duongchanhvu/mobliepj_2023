@@ -1,14 +1,9 @@
 package bottomnavigation;
 
-import android.content.Intent;
-import android.graphics.drawable.ColorDrawable;
-import android.icu.util.ULocale;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.appcompat.app.ActionBar;
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -18,16 +13,9 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
-import android.widget.ListView;
-import android.widget.TextView;
-import android.widget.Toast;
+import android.widget.ImageView;
 
 import com.example.quanlychitieu.R;
-import com.example.quanlychitieu.SendMailActivity;
-import com.example.quanlychitieu.TransactionDetailActivity;
-import com.firebase.ui.database.FirebaseRecyclerAdapter;
-import com.firebase.ui.database.FirebaseRecyclerOptions;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -40,7 +28,6 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
 import java.util.List;
 
-import adapter.ListViewTransactionAdapter;
 import adapter.TransactionAdapter;
 import objects.Transaction;
 import objects.User;
@@ -76,11 +63,14 @@ public class TransactionFrag extends Fragment {
                     Double amount = dataSnapshot1.child("Amount").getValue(Double.class);
                     String date = dataSnapshot1.child("Date").getValue().toString();
                     String note = dataSnapshot1.child("Note").getValue().toString();
+                    Boolean isPay = dataSnapshot1.child("IsPay").getValue(Boolean.class);
 
                     Transaction transaction = new Transaction();
                     transaction.setTransAmount(amount);
                     transaction.setTransDate(date);
                     transaction.setTransNote(note);
+                    transaction.setPay(isPay);
+
                     listTrans.add(transaction);
 
                 }

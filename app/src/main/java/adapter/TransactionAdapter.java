@@ -41,12 +41,18 @@ public class TransactionAdapter extends RecyclerView.Adapter<TransactionAdapter.
 
     @Override
     public void onBindViewHolder(@NonNull MyHolder holder, int position) {
+
         String amount = String.valueOf(transactions.get(position).getTransAmount());
         String date = transactions.get(position).getTransDate();
         String note = transactions.get(position).getTransNote();
         holder.transAmount.setText(amount);
         holder.transDate.setText(date);
         holder.transNote.setText(note);
+        if (transactions.get(position).getPay() == false) {
+            holder.transImg.setImageResource(R.drawable.income);
+        } else {
+            holder.transImg.setImageResource(R.drawable.outcome);
+        }
     }
 
     @Override
