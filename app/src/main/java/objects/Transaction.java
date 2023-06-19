@@ -8,6 +8,9 @@ public class Transaction {
     private String transID;
     private String userID;
 
+    public Transaction(){
+
+    }
     public Transaction(double transAmount, Boolean isPay, String transNote ,
                        String transDate, String userID){
         this.transAmount = transAmount;

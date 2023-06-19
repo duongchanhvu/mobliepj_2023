@@ -21,6 +21,7 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.quanlychitieu.R;
 import com.example.quanlychitieu.SendMailActivity;
@@ -29,100 +30,99 @@ import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.firebase.ui.database.FirebaseRecyclerOptions;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
+import com.google.firebase.database.ValueEventListener;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import adapter.ListViewTransactionAdapter;
+import adapter.TransactionAdapter;
 import objects.Transaction;
+import objects.User;
 
 public class TransactionFrag extends Fragment {
 
-    String itemList[];
-    String itemText2[];
-    String itemText3[];
-    int itemImage[];
-    ListView listView;
+    List<Transaction>  listTrans;
+
+    TransactionAdapter transactionAdapter;
 
     RecyclerView recyclerView;
 
     FirebaseAuth mAuth = FirebaseAuth.getInstance();
     FirebaseUser currentUser = mAuth.getCurrentUser();
-    DatabaseReference transactionRef;
-    DatabaseReference transKey;
+
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         View view = inflater.inflate(R.layout.fragment_transaction, container, false);
-//        listView = (ListView)view.findViewById(R.id.list_trans);
-        String userID = currentUser.getUid();
-        transKey = FirebaseDatabase.getInstance().getReference().child("");
-        transactionRef = FirebaseDatabase.getInstance().getReference().child("Transactions").child(userID);
         recyclerView = view.findViewById(R.id.list_trans);
+        listTrans = new ArrayList<>();
+        loadRecyclerView();
 
-        LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity());
-        layoutManager.setReverseLayout(true);
-        layoutManager.setStackFromEnd(true);
-        recyclerView.setHasFixedSize(true);
-        recyclerView.setLayoutManager(layoutManager);
+        DatabaseReference databaseReference = FirebaseDatabase.getInstance()
+                .getReference().child("Transactions");
+        Query query = databaseReference.orderByChild("UserID").equalTo(currentUser.getUid());
+        query.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                for (DataSnapshot dataSnapshot1 : dataSnapshot.getChildren()) {
+                    Double amount = dataSnapshot1.child("Amount").getValue(Double.class);
+                    String date = dataSnapshot1.child("Date").getValue().toString();
+                    String note = dataSnapshot1.child("Note").getValue().toString();
+
+                    Transaction transaction = new Transaction();
+                    transaction.setTransAmount(amount);
+                    transaction.setTransDate(date);
+                    transaction.setTransNote(note);
+                    listTrans.add(transaction);
+
+                }
+                transactionAdapter.notifyDataSetChanged();
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+                System.out.println("Failed to read data: " + databaseError.getMessage());
+            }
+        });
 
         return view;
     }
 
-    @Override
-    public void onStart() {
-        super.onStart();
-        FirebaseRecyclerOptions<Transaction> options =
-                new FirebaseRecyclerOptions.Builder<Transaction>()
-                        .setQuery(transactionRef, Transaction.class)
-                        .build();
-        FirebaseRecyclerAdapter<Transaction, MyViewHolder> adapter =
-                new FirebaseRecyclerAdapter<Transaction, MyViewHolder>(options) {
-                    @Override
-                    protected void onBindViewHolder(@NonNull MyViewHolder holder, int position, @NonNull Transaction model) {
-                        holder.setDate(model.getTransDate());
-                        holder.setAmount(String.valueOf(model.getTransAmount()));
-                    }
+    private void loadRecyclerView() {
+        LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity());
+        layoutManager.setReverseLayout(true);
+        layoutManager.setStackFromEnd(true);
+        recyclerView.setLayoutManager(layoutManager);
 
-                    @NonNull
-                    @Override
-                    public MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-                        // Tạo ViewHolder mới
-                        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_transaction, parent, false);
-                        return new MyViewHolder(view);
-                    }
-                };
+        DatabaseReference databaseReference = FirebaseDatabase.getInstance()
+                .getReference().child("Transactions");
+        Query query = databaseReference.orderByChild("UserID").equalTo(currentUser.getUid());
+        query.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                listTrans.clear();
+                for (DataSnapshot dataSnapshot1 : dataSnapshot.getChildren()) {
+                    Transaction transaction = dataSnapshot1.getValue(Transaction.class);
+//                    listTrans.add(transaction);
+                    transactionAdapter = new TransactionAdapter(getActivity(), listTrans);
+                    recyclerView.setAdapter(transactionAdapter);
+                }
+            }
 
-        recyclerView.setAdapter(adapter);
-        adapter.startListening();
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+                System.out.println("Failed to read data: " + databaseError.getMessage());
+            }
+        });
     }
-
-    public static class MyViewHolder extends RecyclerView.ViewHolder{
-
-        View mView;
-        public MyViewHolder(View itemView){
-            super(itemView);
-            mView = itemView;
-        }
-
-        private void setDate(String date){
-            TextView mDate = mView.findViewById(R.id.item_text_trans);
-            mDate.setText(date);
-        }
-        private void setAmount(String amount){
-            TextView mAmount = mView.findViewById(R.id.item_text_trans_2);
-            mAmount.setText(amount);
-        }
-    }
-
-    //    @Override
-//    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-//        super.onViewCreated(view, savedInstanceState);
-//        listView = (ListView)view.findViewById(R.id.list_trans);
-//        ListViewTransactionAdapter lvTransAdapter = new ListViewTransactionAdapter(getActivity().getApplicationContext(),
-//                itemList,itemText2, itemText3, itemImage);
-//        listView.setAdapter(lvTransAdapter);
-//    }
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {

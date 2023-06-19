@@ -131,7 +131,7 @@ public class AddTransaction extends AppCompatActivity {
                 return true;
             case R.id.action_save:
                 saveTransaction();
-                showUserTransactionData();
+//                showUserTransactionData();
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
@@ -210,7 +210,7 @@ public class AddTransaction extends AppCompatActivity {
 
         DatabaseReference transactionRef = mDatabase.child("Transactions").push();
         Transaction transaction = new Transaction(transAmount, isPay, transNote, transDate, userID);
-        transactionRef.setValue(transaction, new DatabaseReference.CompletionListener() {
+        transactionRef.setValue(transactionData, new DatabaseReference.CompletionListener() {
             @Override
             public void onComplete(@Nullable DatabaseError error, @NonNull DatabaseReference ref) {
                 if (error == null) {
