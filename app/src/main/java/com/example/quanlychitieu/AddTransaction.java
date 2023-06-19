@@ -33,6 +33,7 @@ import java.util.Locale;
 import java.util.Map;
 import java.util.Objects;
 
+import objects.Transaction;
 import objects.User;
 
 public class AddTransaction extends AppCompatActivity {
@@ -48,7 +49,7 @@ public class AddTransaction extends AppCompatActivity {
     User user;
 
     FirebaseUser currentUser;
-    DatabaseReference mDatabase;
+    DatabaseReference  mDatabase;
 
     String[] options = {
             "Pay",
@@ -208,7 +209,8 @@ public class AddTransaction extends AppCompatActivity {
         transactionData.put("UserID", userID);
 
         DatabaseReference transactionRef = mDatabase.child("Transactions").push();
-        transactionRef.setValue(transactionData, new DatabaseReference.CompletionListener() {
+        Transaction transaction = new Transaction(transAmount, isPay, transNote, transDate, userID);
+        transactionRef.setValue(transaction, new DatabaseReference.CompletionListener() {
             @Override
             public void onComplete(@Nullable DatabaseError error, @NonNull DatabaseReference ref) {
                 if (error == null) {
