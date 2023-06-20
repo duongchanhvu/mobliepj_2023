@@ -16,8 +16,12 @@
         android:theme="@style/Theme.MaterialComponents.Light"
         tools:targetApi="31">
         <activity
+            android:name=".UpdateTransaction"
+            android:exported="false" />
+        <activity
             android:name=".AddTransaction"
             android:parentActivityName=".MainActivity">
+
             <!-- Other activity attributes -->
         </activity>
         <activity android:name=".MyWallet" />
@@ -35,8 +39,7 @@
             android:exported="false" />
         <activity
             android:name=".LoginActivity"
-            android:exported="false">
-        </activity>
+            android:exported="false"></activity>
         <activity android:name=".AboutActivity" />
         <activity android:name=".PrivacyActivity" />
         <activity

@@ -42,26 +42,26 @@ public class TransactionDetailActivity extends AppCompatActivity {
 
         TextView AmountTV = findViewById(R.id.Amount);
         TextView DateTV = findViewById(R.id.Date);
-        TextView TypeTV = findViewById(R.id.Type);
+        TextView isPay = findViewById(R.id.Type);
         TextView NoteTV = findViewById(R.id.Note);
         Button EditBtn = findViewById(R.id.EditBtn);
         Button DeleteBtn = findViewById(R.id.DeleteBtn);
 
         AmountTV.setText(Amount);
         DateTV.setText(Date);
-        TypeTV.setText(Type);
+        isPay.setText(Type);
         NoteTV.setText(Note);
 
         EditBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 //DatabaseReference transactionRef = mDatabase.child("Transactions").child(TransID);
-                Intent intent = new Intent(TransactionDetailActivity.this, AddTransaction.class);
+                Intent intent = new Intent(TransactionDetailActivity.this, UpdateTransaction.class);
                 intent.putExtra("TransID", TransID);
                 intent.putExtra("amount", Amount);
                 intent.putExtra("date", Date);
                 intent.putExtra("note", Note);
-                intent.putExtra("GetPAY", Type);
+                intent.putExtra("isPay", Type);
                 startActivity(intent);
             }
         });
@@ -73,8 +73,7 @@ public class TransactionDetailActivity extends AppCompatActivity {
                     @Override
                     public void onComplete(@Nullable DatabaseError error, @NonNull DatabaseReference ref) {
                         Toast.makeText(TransactionDetailActivity.this,"Delete Successful",Toast.LENGTH_SHORT).show();
-                        //Intent intent = new Intent(TransactionDetailActivity.this, TransactionFrag.class);
-                        //startActivity(intent);
+                        finish();
                     }
                 });
             }

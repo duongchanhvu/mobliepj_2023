@@ -1,24 +1,26 @@
 package objects;
 
 public class Transaction {
-    private double transAmount;
-    private Boolean isPay;
+    public double transAmount;
+    public Boolean isPay;
     private String transNote;
     private String transDate;
-    private String transID;
+    public String transID;
     private String userID;
 
     public Transaction(){
 
     }
-    public Transaction(double transAmount, Boolean isPay, String transNote ,
+    public Transaction(String transID,Double transAmount, Boolean isPay, String transNote ,
                        String transDate, String userID){
+        this.transID = transID;
         this.transAmount = transAmount;
         this.isPay = isPay;
         this. transNote = transNote;
         this.transDate = transDate;
         this.userID = userID;
     }
+
 
     public Boolean getPay() {
         return isPay;
