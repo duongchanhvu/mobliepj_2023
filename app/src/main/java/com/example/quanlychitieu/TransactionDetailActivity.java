@@ -73,8 +73,8 @@ public class TransactionDetailActivity extends AppCompatActivity {
                     @Override
                     public void onComplete(@Nullable DatabaseError error, @NonNull DatabaseReference ref) {
                         Toast.makeText(TransactionDetailActivity.this,"Delete Successful",Toast.LENGTH_SHORT).show();
-                        Intent intent = new Intent(TransactionDetailActivity.this, TransactionFrag.class);
-                        startActivity(intent);
+                        //Intent intent = new Intent(TransactionDetailActivity.this, TransactionFrag.class);
+                        //startActivity(intent);
                     }
                 });
             }
