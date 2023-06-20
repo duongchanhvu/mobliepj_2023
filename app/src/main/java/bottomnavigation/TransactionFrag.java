@@ -74,7 +74,6 @@ public class TransactionFrag extends Fragment {
                     listTrans.add(transaction);
 
                 }
-                transactionAdapter.notifyDataSetChanged();
             }
 
             @Override
