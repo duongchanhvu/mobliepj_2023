@@ -39,7 +39,7 @@ public class ReportFrag extends Fragment {
 
         // Retrieve data from Firebase using the user ID
         String userId = "your_user_id"; // Replace with the actual user ID
-        databaseRef.child("users").child(userId).addListenerForSingleValueEvent(new ValueEventListener() {
+        databaseRef.child("Users").child(userId).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 //Initialize Array
