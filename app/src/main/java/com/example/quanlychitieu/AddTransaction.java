@@ -37,6 +37,11 @@ import objects.Transaction;
 import objects.User;
 
 public class AddTransaction extends AppCompatActivity {
+    String TransIDEdit;
+    String amountEdit;
+    String dateEdit;
+    String noteEdit;
+    String TypeEdit;
 
     EditText groupOfTrans;
     EditText amount;
@@ -79,7 +84,20 @@ public class AddTransaction extends AppCompatActivity {
         calendar = Calendar.getInstance();
 
         mDatabase = FirebaseDatabase.getInstance().getReference();
-
+        if(getIntent().getStringExtra("TransID").isEmpty())
+        {return;}
+        else
+        {
+            TransIDEdit=getIntent().getStringExtra("TransID");
+            amountEdit= getIntent().getStringExtra("amount");
+            dateEdit=getIntent().getStringExtra("date");
+            noteEdit=getIntent().getStringExtra("note");
+            TypeEdit=getIntent().getStringExtra("GetPAY");
+            amount.setText(amountEdit);
+            groupOfTrans.setText(TypeEdit);
+            note.setText(noteEdit);
+            transactionDate.setText(dateEdit);
+        }
 //        wallet.setText("Cash");
 
         currentUser = FirebaseAuth.getInstance().getCurrentUser();
@@ -207,8 +225,12 @@ public class AddTransaction extends AppCompatActivity {
         transactionData.put("Note", transNote);
         transactionData.put("Date", transDate);
         transactionData.put("UserID", userID);
+        DatabaseReference transactionRef;
 
-        DatabaseReference transactionRef = mDatabase.child("Transactions").push();
+        if(getIntent().getStringExtra("TransID").isEmpty())
+        {transactionRef = mDatabase.child("Transactions").push();}
+        else
+        {transactionRef =mDatabase.child("Transactions").child(TransIDEdit);}
 //        Transaction transaction = new Transaction(transAmount, isPay, transNote, transDate, userID);
         transactionRef.setValue(transactionData, new DatabaseReference.CompletionListener() {
             @Override
