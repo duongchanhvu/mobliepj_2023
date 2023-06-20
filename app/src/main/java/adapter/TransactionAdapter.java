@@ -1,6 +1,9 @@
 package adapter;
 
+import static androidx.core.content.ContextCompat.startActivity;
+
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,6 +17,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.quanlychitieu.R;
+import com.example.quanlychitieu.TransactionDetailActivity;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
@@ -21,6 +25,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import java.text.DecimalFormat;
 import java.util.List;
 
+import bottomnavigation.TransactionFrag;
 import objects.Transaction;
 
 public class TransactionAdapter extends RecyclerView.Adapter<TransactionAdapter.MyHolder> {
@@ -47,14 +52,36 @@ public class TransactionAdapter extends RecyclerView.Adapter<TransactionAdapter.
         String amount = String.valueOf(transactions.get(position).getTransAmount());
         String date = transactions.get(position).getTransDate();
         String note = transactions.get(position).getTransNote();
+        String TransID = transactions.get(position).getTransID();
+        String GetPAY;
         holder.transAmount.setText(amount);
         holder.transDate.setText(date);
         holder.transNote.setText(note);
         if (transactions.get(position).getPay() == false) {
             holder.transImg.setImageResource(R.drawable.income);
+            GetPAY = "Earn";
         } else {
             holder.transImg.setImageResource(R.drawable.outcome);
+            GetPAY = "Pay";
         }
+
+        holder.transItem.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Detail(TransID, amount, date, note,GetPAY);
+            }
+        });
+    }
+
+    private void Detail(String TransID, String amount, String date, String note, String GetPAY){
+        Intent intent = new Intent(context, TransactionDetailActivity.class );
+        intent.putExtra("TransID", TransID);
+        intent.putExtra("amount", amount);
+        intent.putExtra("date", date);
+        intent.putExtra("note", note);
+        intent.putExtra("GetPAY", GetPAY);
+
+        context.startActivity(intent);
     }
 
     @Override

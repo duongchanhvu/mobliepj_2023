@@ -64,13 +64,14 @@ public class TransactionFrag extends Fragment {
                     String date = dataSnapshot1.child("Date").getValue().toString();
                     String note = dataSnapshot1.child("Note").getValue().toString();
                     Boolean isPay = dataSnapshot1.child("IsPay").getValue(Boolean.class);
+                    String TransID = dataSnapshot1.getKey();
 
                     Transaction transaction = new Transaction();
                     transaction.setTransAmount(amount);
                     transaction.setTransDate(date);
                     transaction.setTransNote(note);
                     transaction.setPay(isPay);
-
+                    transaction.setTransID(TransID);
                     listTrans.add(transaction);
 
                 }

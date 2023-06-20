@@ -80,6 +80,8 @@ public class AddTransaction extends AppCompatActivity {
 
         mDatabase = FirebaseDatabase.getInstance().getReference();
 
+
+
 //        wallet.setText("Cash");
 
         currentUser = FirebaseAuth.getInstance().getCurrentUser();
@@ -209,7 +211,6 @@ public class AddTransaction extends AppCompatActivity {
         transactionData.put("UserID", userID);
 
         DatabaseReference transactionRef = mDatabase.child("Transactions").push();
-//        Transaction transaction = new Transaction(transAmount, isPay, transNote, transDate, userID);
         transactionRef.setValue(transactionData, new DatabaseReference.CompletionListener() {
             @Override
             public void onComplete(@Nullable DatabaseError error, @NonNull DatabaseReference ref) {
@@ -285,7 +286,6 @@ public class AddTransaction extends AppCompatActivity {
                 System.out.println("Failed to read data: " + databaseError.getMessage());
             }
         });
-
     }
 
 }
