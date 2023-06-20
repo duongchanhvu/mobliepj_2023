@@ -18,6 +18,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
+import java.text.DecimalFormat;
 import java.util.List;
 
 import objects.Transaction;
@@ -26,6 +27,7 @@ public class TransactionAdapter extends RecyclerView.Adapter<TransactionAdapter.
     Context context;
     String userID;
     List<Transaction> transactions;
+
     public TransactionAdapter(Context context, List<Transaction> transactions) {
         this.context = context;
         this.transactions = transactions;
