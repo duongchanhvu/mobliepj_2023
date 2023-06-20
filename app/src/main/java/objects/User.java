@@ -3,7 +3,7 @@ package objects;
 public class User {
     public String email;
     public String userID;
-    public double balance;
+    public float balance;
 
     public User(){
 
@@ -30,6 +30,11 @@ public class User {
         this.userID = userID;
     }
 
+    public float getBalance() {
+        return balance;
+    }
 
-
+    public void setBalance(float balance) {
+        this.balance = balance;
+    }
 }
