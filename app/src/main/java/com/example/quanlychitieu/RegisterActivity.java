@@ -49,7 +49,7 @@ public  class RegisterActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 dialog.dismiss();
-                Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
+                Intent intent = new Intent(getApplicationContext(), MainActivity.class);
                 startActivity(intent);
             }
         });
@@ -133,11 +133,7 @@ public  class RegisterActivity extends AppCompatActivity {
                     reference.child(uid).setValue(users);
 
                     Toast.makeText(RegisterActivity.this, "Registered user " + user.getEmail() + " successfully", Toast.LENGTH_LONG).show();
-
-                    Intent mainIntent = new Intent(RegisterActivity.this, LoginActivity.class);
-                    mainIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                    startActivity(mainIntent);
-                    finish();
+                    showSuccessDialog();
                 } else {
                     Toast.makeText(RegisterActivity.this, "Failed to register!", Toast.LENGTH_LONG).show();
                 }

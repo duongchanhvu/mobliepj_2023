@@ -8,11 +8,14 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.DatePickerDialog;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.Toast;
@@ -33,6 +36,7 @@ import java.util.Locale;
 import java.util.Map;
 import java.util.Objects;
 
+import bottomnavigation.HomeFrag;
 import objects.Transaction;
 import objects.User;
 
@@ -133,14 +137,35 @@ public class AddTransaction extends AppCompatActivity {
                 return true;
             case R.id.action_save:
                 saveTransaction();
-//                showUserTransactionData();
+                showSuccessDialog();
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
         }
     }
 
+    public void showSuccessDialog(){
+        LayoutInflater inflater = LayoutInflater.from(this);
+        View dialogView = inflater.inflate(R.layout.modal_save_transactions_successfully, null);
 
+        android.app.AlertDialog.Builder builder = new android.app.AlertDialog.Builder(this);
+        builder.setView(dialogView);
+        android.app.AlertDialog dialog = builder.create();
+
+        Button dialogButton = dialogView.findViewById(R.id.dialogTransBtn);
+        dialogButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog.dismiss();
+//                Intent intent = new Intent(getApplicationContext(), HomeFrag.class);
+//                startActivity(intent);
+                finish();
+            }
+        });
+
+        dialog.show();
+
+    }
     public void showOptionsDialog(){
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setTitle("Select group of transaction")
@@ -197,11 +222,19 @@ public class AddTransaction extends AppCompatActivity {
 
     public void saveTransaction() {
         String transAmountString = amount.getText().toString();
-        double transAmount = Double.parseDouble(transAmountString);
+        String isPayString = groupOfTrans.getText().toString();
         boolean isPay = groupOfTrans.getText().toString().equals("Pay");
         String transNote = note.getText().toString();
         String transDate = String.valueOf(transactionDate.getText());
         String userID = user.userID;
+
+
+        if (transAmountString.isEmpty()|| transNote.isEmpty() || isPayString.isEmpty()) {
+            Toast.makeText(AddTransaction.this, "Please fill all the information", Toast.LENGTH_SHORT).show();
+            return; // Exit the method to prevent further execution
+        }
+
+        double transAmount = Double.parseDouble(transAmountString);
 
         Map<String, Object> transactionData = new HashMap<>();
         transactionData.put("Amount", transAmount);

@@ -25,6 +25,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -65,6 +66,8 @@ public class TransactionFrag extends Fragment {
                     String note = dataSnapshot1.child("Note").getValue().toString();
                     Boolean isPay = dataSnapshot1.child("IsPay").getValue(Boolean.class);
                     String TransID = dataSnapshot1.getKey();
+
+                    DecimalFormat f = new DecimalFormat("#,###");
 
                     Transaction transaction = new Transaction();
                     transaction.setTransAmount(amount);

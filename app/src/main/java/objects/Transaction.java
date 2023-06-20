@@ -30,8 +30,8 @@ public class Transaction {
         return isPay;
     }
 
-    public String getTransAmount() {
-        return f.format(Double.parseDouble(String.valueOf(transAmount)));
+    public Double getTransAmount() {
+        return transAmount;
     }
 
     public String getTransDate() {
@@ -75,4 +75,5 @@ public class Transaction {
     public void setUserID(String userID) {
         this.userID = userID;
     }
+
 }

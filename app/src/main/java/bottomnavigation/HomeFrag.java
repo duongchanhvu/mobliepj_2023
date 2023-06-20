@@ -11,6 +11,7 @@ import android.provider.ContactsContract;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.quanlychitieu.R;
@@ -24,11 +25,13 @@ import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
 import java.text.DecimalFormat;
+import java.util.Calendar;
 
 
 public class HomeFrag extends Fragment {
 
-    TextView balanceTextView;
+    TextView balanceTextView, showUserTxt;
+    ImageView imageView;
 
     DatabaseReference transactionRef = FirebaseDatabase.getInstance().getReference("Users");
     FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
@@ -39,6 +42,8 @@ public class HomeFrag extends Fragment {
         View view = inflater.inflate(R.layout.fragment_home, container, false);
 
         balanceTextView = view.findViewById(R.id.balanceTxt);
+        showUserTxt = view.findViewById(R.id.showUserTxt);
+        imageView = view.findViewById(R.id.greetImg);
 
         // Hide the app title bar
         AppCompatActivity activity = (AppCompatActivity) getActivity();
@@ -52,9 +57,28 @@ public class HomeFrag extends Fragment {
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 for (DataSnapshot transactionSnapshot : snapshot.getChildren()) {
                     double userBalance = transactionSnapshot.child("balance").getValue(Double.class);
+                    String email = transactionSnapshot.child("email").getValue().toString();
                     DecimalFormat f = new DecimalFormat("#,###");
                     String formattedBalance = f.format(userBalance);
                     balanceTextView.setText(formattedBalance);
+                    Calendar calendar = Calendar.getInstance();
+                    int hour = calendar.get(Calendar.HOUR_OF_DAY);
+                    int backgroundImg;
+
+                    String greeting;
+                    if (hour >= 6 && hour < 11) {
+                        greeting = "Good Morning! ";
+                        backgroundImg = R.drawable.morning_background;
+                    } else if (hour >= 12 && hour < 17) {
+                        greeting = "Good Afternoon! ";
+                        backgroundImg = R.drawable.afternoon_background;
+                    } else{
+                        greeting = "Good Evening! ";
+                        backgroundImg = R.drawable.evening_background;
+                    }
+
+                    view.setBackgroundResource(backgroundImg);
+                    showUserTxt.setText(greeting  + email);
                 }
             }
 

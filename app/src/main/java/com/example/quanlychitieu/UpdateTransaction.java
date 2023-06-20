@@ -5,9 +5,13 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.ContextCompat;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 
 import android.app.DatePickerDialog;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.view.Menu;
@@ -32,6 +36,7 @@ import java.util.Locale;
 import java.util.Map;
 import java.util.Objects;
 
+import bottomnavigation.TransactionFrag;
 import objects.Transaction;
 import objects.User;
 
@@ -89,8 +94,12 @@ public class UpdateTransaction extends AppCompatActivity {
         amountEdit.setText(String.valueOf(transaction.getTransAmount()));
         dateEdit.setText(transaction.getTransDate());
         noteEdit.setText(transaction.getTransNote());
-        groupOfTransEdit.setText(String.valueOf(transaction.getPay()));
-
+        if (String.valueOf(transaction.getPay()) == "false"){
+            groupOfTransEdit.setText("Earn");
+        }
+        else {
+            groupOfTransEdit.setText("Pay");
+        }
 
 
         dateEdit.setOnClickListener(new View.OnClickListener() {
@@ -123,6 +132,7 @@ public class UpdateTransaction extends AppCompatActivity {
                 return true;
             case R.id.action_save:
                 updateTransaction();
+                finish();
 //                showUserTransactionData();
                 return true;
             default:

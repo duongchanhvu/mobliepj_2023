@@ -14,6 +14,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.quanlychitieu.R;
@@ -49,20 +50,27 @@ public class TransactionAdapter extends RecyclerView.Adapter<TransactionAdapter.
     @Override
     public void onBindViewHolder(@NonNull MyHolder holder, int position) {
 
+        DecimalFormat f = new DecimalFormat("#,###");
+
         String amount = String.valueOf(transactions.get(position).getTransAmount());
+        String formattedAmount = f.format(Double.parseDouble(amount));
         String date = transactions.get(position).getTransDate();
         String note = transactions.get(position).getTransNote();
         String TransID = transactions.get(position).getTransID();
         String GetPAY;
-        holder.transAmount.setText(amount);
+        holder.transAmount.setText(formattedAmount);
         holder.transDate.setText(date);
         holder.transNote.setText(note);
         if (transactions.get(position).getPay() == false) {
             holder.transImg.setImageResource(R.drawable.income);
             GetPAY = "Earn";
+            holder.transAmount.setTextColor(ContextCompat.getColor(context, R.color.green)); // Đặt màu xanh
+
         } else {
             holder.transImg.setImageResource(R.drawable.outcome);
             GetPAY = "Pay";
+            holder.transAmount.setTextColor(ContextCompat.getColor(context, R.color.red)); // Đặt màu đỏ
+
         }
 
         holder.transItem.setOnClickListener(new View.OnClickListener() {
