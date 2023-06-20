@@ -23,6 +23,8 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
+import java.text.DecimalFormat;
+
 
 public class HomeFrag extends Fragment {
 
@@ -49,8 +51,10 @@ public class HomeFrag extends Fragment {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 for (DataSnapshot transactionSnapshot : snapshot.getChildren()) {
-                    String userBalance = transactionSnapshot.child("balance").getValue().toString();
-                    balanceTextView.setText(userBalance);
+                    double userBalance = transactionSnapshot.child("balance").getValue(Double.class);
+                    DecimalFormat f = new DecimalFormat("#,###");
+                    String formattedBalance = f.format(userBalance);
+                    balanceTextView.setText(formattedBalance);
                 }
             }
 

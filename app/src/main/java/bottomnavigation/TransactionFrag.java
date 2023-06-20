@@ -75,7 +75,6 @@ public class TransactionFrag extends Fragment {
                     listTrans.add(transaction);
 
                 }
-
             }
 
             @Override

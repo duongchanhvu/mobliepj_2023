@@ -126,7 +126,6 @@ public  class RegisterActivity extends AppCompatActivity {
                     HashMap<String, Object> users = new HashMap<>();
                     users.put("email", username);
                     users.put("uid", uid);
-                    users.put("password", password);
                     users.put("balance", 0); // Set the balance as a number, e.g., 0
 
                     FirebaseDatabase database = FirebaseDatabase.getInstance();

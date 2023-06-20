@@ -1,5 +1,7 @@
 package objects;
 
+import java.text.DecimalFormat;
+
 public class Transaction {
     public double transAmount;
     public Boolean isPay;
@@ -7,6 +9,8 @@ public class Transaction {
     private String transDate;
     public String transID;
     private String userID;
+
+    DecimalFormat f = new DecimalFormat("#,###");
 
     public Transaction(){
 
@@ -26,8 +30,8 @@ public class Transaction {
         return isPay;
     }
 
-    public double getTransAmount() {
-        return transAmount;
+    public String getTransAmount() {
+        return f.format(Double.parseDouble(String.valueOf(transAmount)));
     }
 
     public String getTransDate() {
