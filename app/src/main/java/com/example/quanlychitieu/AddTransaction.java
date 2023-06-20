@@ -84,10 +84,7 @@ public class AddTransaction extends AppCompatActivity {
         calendar = Calendar.getInstance();
 
         mDatabase = FirebaseDatabase.getInstance().getReference();
-        if(getIntent().getStringExtra("TransID").isEmpty())
-        {return;}
-        else
-        {
+
             TransIDEdit=getIntent().getStringExtra("TransID");
             amountEdit= getIntent().getStringExtra("amount");
             dateEdit=getIntent().getStringExtra("date");
@@ -97,7 +94,7 @@ public class AddTransaction extends AppCompatActivity {
             groupOfTrans.setText(TypeEdit);
             note.setText(noteEdit);
             transactionDate.setText(dateEdit);
-        }
+
 //        wallet.setText("Cash");
 
         currentUser = FirebaseAuth.getInstance().getCurrentUser();
@@ -227,7 +224,7 @@ public class AddTransaction extends AppCompatActivity {
         transactionData.put("UserID", userID);
         DatabaseReference transactionRef;
 
-        if(getIntent().getStringExtra("TransID").isEmpty())
+        if(getIntent().getStringExtra("TransID") == null)
         {transactionRef = mDatabase.child("Transactions").push();}
         else
         {transactionRef =mDatabase.child("Transactions").child(TransIDEdit);}
